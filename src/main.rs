@@ -1,5 +1,3 @@
-#![feature(decl_macro)]
-
 pub trait Test {}
 
 struct A {}
@@ -10,9 +8,12 @@ struct A {}
 // If this is commented out, the code will run normally.
 impl Test for A {}
 
-fn main() {
-    pub macro test($t:expr) {
+macro_rules! test {
+    ($t:expr) => {
         &$t as &dyn Test
-    }
+    };
+}
+
+fn main() {
     test!(example_panic::B {});
 }
